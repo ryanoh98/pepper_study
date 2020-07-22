@@ -12,7 +12,7 @@ def main(session):
     motion_service.setStiffnesses("Head", 1.0)
 
     names      = "RWristYaw"
-    angleLists = -70.0*almath.TO_RAD
+    angleLists = 70.0*almath.TO_RAD
     timeLists  = 2.0
     isAbsolute = True
     motion_service.angleInterpolation(names, angleLists, timeLists, isAbsolute)
