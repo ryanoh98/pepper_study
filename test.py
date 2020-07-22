@@ -9,15 +9,30 @@ import time
 
 def main(session):
     motion_service  = session.service("ALMotion")
+    posture_service = session.service("ALRobotPosture")
+
     motion_service.setStiffnesses("Head", 1.0)
 
-    names      = "RWristYaw"
-    angleLists = 70.0*almath.TO_RAD
+    names      = "RShoulderPitch"
+    angleLists = -20.0*almath.TO_RAD
     timeLists  = 2.0
     isAbsolute = True
     motion_service.angleInterpolation(names, angleLists, timeLists, isAbsolute)
 
+    motion_service.openHand('RHand')
+    motion_service.closeHand('RHand')
 
+    names      = "RShoulderPitch"
+    angleLists = 90.0*almath.TO_RAD
+    timeLists  = 2.0
+    isAbsolute = True
+    motion_service.angleInterpolation(names, angleLists, timeLists, isAbsolute)
+
+    names      = "RWristYaw"
+    angleLists = 75.0*almath.TO_RAD
+    timeLists  = 2.0
+    isAbsolute = True
+    motion_service.angleInterpolation(names, angleLists, timeLists, isAbsolute)
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
