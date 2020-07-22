@@ -11,7 +11,7 @@ def main(session):
     motion_service  = session.service("ALMotion")
     motion_service.setStiffnesses("Head", 1.0)
 
-    names      = "RElbowRoll"
+    names      = "RWristYaw"
     angleLists = -70.0*almath.TO_RAD
     timeLists  = 2.0
     isAbsolute = True
