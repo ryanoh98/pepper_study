@@ -4,6 +4,7 @@ import sys
 
 # post to net : add -> commit -> push
 # update to net : pull
+## add comment
 def main():
     session = qi.Session()
     ip = '192.168.1.45'
