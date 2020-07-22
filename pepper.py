@@ -1,23 +1,15 @@
-import qi
-import math
-import sys
-
 # post to net : add -> commit -> push
 # update to net : pull
 import qi
 import argparse
 import sys
-
+import math
+import almath
+import time
 
 def main(session):
-    """
-    This example uses the say method.
-    It makes the robot say some text using the module.
-    """
-    # Get the service ALTextToSpeech.
+    # Speaking
     tts = session.service("ALTextToSpeech")
-
-    #Says a test std::string
     tts.say("Hi!")
 
 
