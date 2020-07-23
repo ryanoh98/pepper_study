@@ -3,6 +3,9 @@ import argparse
 import sys
 import time
 import vision_definitions
+import json
+import base64
+import requests
 from PIL import Image
 
 
@@ -14,8 +17,8 @@ def main(session):
     # Register a Generic Video Module
     resolution = vision_definitions.kQQVGA
     colorSpace = vision_definitions.kYUVColorSpace 
-    fps = 5
-    resolution = 2
+    fps = 20
+    resolution = 5
     colorSpace = 11
 
     nameId = video_service.subscribe("python_GVM", resolution, colorSpace, fps)
@@ -36,7 +39,17 @@ def main(session):
         
     video_service.unsubscribe(nameId)
 
-    
+    return image_string
+
+def pose_detect(file):
+    APP_KEY = '3ac17bc0e257b604d053901085eaae99'
+    session = requests.Session()
+    session.headers.update({'Authorization': 'KakaoAK ' + APP_KEY})
+
+    response = session.post('https://cv-api.kakaobrain.com/pose', files=[('file', file)])
+    result = response.json()
+    return result
+
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
@@ -52,4 +65,12 @@ if __name__ == "__main__":
     except RuntimeError:
         print ("Can't connect to Naoqi at ip \"" + args.ip + "\" on port " + str(args.port) +".\n""Please check your script arguments. Run with -h option for help.")
         sys.exit(1) 
-    main(session)
+    data = main(session)
+
+    result_pose = pose_detect(data)
+    print(result_pose)
+
+
+
+
+
