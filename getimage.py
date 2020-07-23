@@ -30,7 +30,6 @@ def main(session):
         width = naoImage[0]
         height = naoImage[1]
         array = naoImage[6]
-        print(width, height)
         image_string = str(bytearray(array))
         im = Image.frombytes("RGB", (width, height), image_string)
         im.save("naoImage"+str(i)+'.png',"PNG")
