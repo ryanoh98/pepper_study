@@ -53,5 +53,19 @@ if __name__ == "__main__":
     # print('image_size', im.size)
     IMAGE_FILE_PATH ='./sample3.png'
     f = open(IMAGE_FILE_PATH, 'rb')
-    result = pose_detect(f)
-    visualize(IMAGE_FILE_PATH, result)
+    result1 = pose_detect(f)
+
+    IMAGE_FILE_PATH = './sample4.png'
+    f = open(IMAGE_FILE_PATH, 'rb')
+    result2 = pose_detect(f)
+    point1 = result1[0]['keypoints']
+    point2 = result2[0]['keypoints']
+    print(result1[0]['keypoints'])
+    print(result2[0]['keypoints'])
+    score = 0
+    for i,j in zip(point1, point2):
+        score += abs(i-j)
+    print('score',score)
+    # visualize(IMAGE_FILE_PATH, result)
+    #sample3 - usain = 9408
+    # sample3 - sample4 = 1711
