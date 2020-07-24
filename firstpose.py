@@ -1,7 +1,6 @@
-import json
-import base64
+
 import requests
-from PIL import Image
+
 import cv2
 import numpy as np
 from matplotlib import pyplot as plt
@@ -26,7 +25,8 @@ def visualize(filename, annotations, threshold=0.2):
         annotation['keypoints'] = keypoints.reshape(-1).tolist()
 
     # COCO API를 활용한 시각화
-    image = cv2.cvtColor(cv2.imread(filename, cv2.IMREAD_COLOR), cv2.COLOR_BGR2RG)
+    img = cv2.imread(filename, cv2.IMREAD_COLOR)
+    image = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
     plt.imshow(image)
     plt.axis('off')
     coco = COCO()
@@ -49,9 +49,9 @@ def visualize(filename, annotations, threshold=0.2):
     plt.show()
 
 if __name__ == "__main__":
-    im = Image.open('C:/Users/오윤제/Pictures/1.jpg')
-    print('image_size', im.size)
-
-    f = open('C:/Users/오윤제/Pictures/1.jpg', 'rb')
-    result_pose = pose_detect(f)
-    visualize_pose = visualize(result_pose)
+    # im = Image.open('C:/Users/오윤제/Pictures/1.jpg')
+    # print('image_size', im.size)
+    IMAGE_FILE_PATH ='./sample3.png'
+    f = open(IMAGE_FILE_PATH, 'rb')
+    result = pose_detect(f)
+    visualize(IMAGE_FILE_PATH, result)
