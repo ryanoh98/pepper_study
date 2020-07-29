@@ -16,7 +16,7 @@ if __name__ == "__main__":
     im = Image.open('C:/Users/오윤제/Pictures/aaa.jpg')
     print('image_size', im.size)
 
-    f = open('C:/Users/오윤제/Pictures/aaa.jpg', 'rb')
+    f = open('C:/Users/오윤제/Pictures/.jpg', 'rb')
     print(f)
     result_pose = pose_detect(f)
     print(result_pose)

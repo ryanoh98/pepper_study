@@ -132,7 +132,9 @@ if __name__ == "__main__":
 
             for i,j in zip(point1, point2):
                 score += abs(i-j)
-        except:
+        except Exception as e:
+            print(result_pose_sample)
+            print(e)
             pass
         if score > 500:
             bad(session)
