@@ -74,22 +74,26 @@ def concl(session):
     tts = session.service("ALTextToSpeech")
     tts.say("Well done! Now, you deserve to be a normal one.")
 
-def lookfront(session):
-    posture_service = session.service("ALRobotPosture")
-    posture_service.goToPosture("StandInit", 1.0)
+def lookfrontandposture(session):
+    motion_service  = session.service("ALMotion")
+    motion_service.setStiffnesses(["Head", "Shoulder"], [1.0, 1.0])
+    names            = ["HeadYaw", "HeadPitch", "LShoulderPitch", "RShoulderPitch"]
+    angles           = [0.0*almath.TO_RAD, 0.0*almath.TO_RAD, -86.0*almath.TO_RAD, -86.0*almath.TO_RAD]
+    fractionMaxSpeed = 0.1
+    motion_service.setAngles(names,angles,fractionMaxSpeed)
+
 
 def posture(session):
     # Get the service ALMotion.
     motion_service = session.service("ALMotion")
-    motion_service.setStiffnesses("Head", 1.0)
+    motion_service.setStiffnesses("Shoulder", 1.0)
 
     # Example showing a single target angle for one joint
     # Interpolates the head yaw to 1.0 radian in 1.0 second
     names      = ["LShoulderPitch", "RShoulderPitch"]
-    angleLists = [-86.0*almath.TO_RAD, -86.0*almath.TO_RAD]
-    timeLists  = [1.0, 1.0]
-    isAbsolute = True
-    motion_service.angleInterpolation(names, angleLists, timeLists, isAbsolute)
+    angles = [-86.0*almath.TO_RAD, -86.0*almath.TO_RAD]
+    fractionMaxSpeed = 0.1
+    motion_service.setAngles(names,angles,fractionMaxSpeed)
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
@@ -108,9 +112,7 @@ if __name__ == "__main__":
         sys.exit(1)
 
     # Introduction
-    lookfront(session)
     intro(session)
-    posture(session)
 
     # analyze the sample
     f = open('./1.jpg', 'rb')
@@ -118,7 +120,7 @@ if __name__ == "__main__":
 
     while True:
         # analyze the captured photo
-        lookfront(session)
+        lookfrontandposture(session)
         data = main(session)
         result_pose_capture = pose_detect(data)
 
