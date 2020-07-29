@@ -39,7 +39,7 @@ def capture(session):
 
     video_service.unsubscribe(nameId)
 
-    return bytes(array)
+    return image_string
 
 # pose analyze
 def pose_detect(file):
@@ -121,7 +121,8 @@ if __name__ == "__main__":
         # analyze the captured photo
         lookfrontandposture(session)
         data = capture(session)
-        result_pose_capture = pose_detect(data)
+        f_capture = open('./naoImage0.png', 'rb')
+        result_pose_capture = pose_detect(f_capture)
 
         # Compare two photos
         score = 0
