@@ -24,16 +24,14 @@ def main(session):
 
     nameId = video_service.subscribe("python_GVM", resolution, colorSpace, fps)
 
-    print
-    'getting images in remote'
+    print ('getting images in remote')
     for i in range(0, 1):
-        print
-        "getting image " + str(i)
+        print("getting image " + str(i))
         naoImage = video_service.getImageRemote(nameId)
         width = naoImage[0]
         height = naoImage[1]
         array = naoImage[6]
-        image_string = str(bytearray(array))
+        image_string = bytearray(array)
         im = Image.frombytes("RGB", (width, height), image_string)
         im.save("naoImage" + str(i) + '.png', "PNG")
         time.sleep(0.05)
