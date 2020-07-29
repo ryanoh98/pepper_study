@@ -13,10 +13,10 @@ def pose_detect(file):
     return result
 
 if __name__ == "__main__":
-    im = Image.open('C:/Users/오윤제/Pictures/2.jpg')
+    im = Image.open('C:/Users/오윤제/Pictures/aaa.jpg')
     print('image_size', im.size)
 
-    f = open('C:/Users/오윤제/Pictures/2.jpg', 'rb')
+    f = open('C:/Users/오윤제/Pictures/aaa.jpg', 'rb')
     print(f)
     result_pose = pose_detect(f)
     print(result_pose)
