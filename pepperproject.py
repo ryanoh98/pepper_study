@@ -12,6 +12,7 @@ from PIL import Image
 # pepper capturing photo
 def capture(session):
     # Get the service ALVideoDevice.
+    print('here is capture function')
 
     video_service = session.service("ALVideoDevice")
 
