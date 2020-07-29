@@ -117,4 +117,5 @@ if __name__ == "__main__":
             break
     # Conclusion
     concl(session)
+    print('score', score)
 
