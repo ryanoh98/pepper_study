@@ -87,7 +87,7 @@ def posture(session):
     # Interpolates the head yaw to 1.0 radian in 1.0 second
     names      = ["LShoulderPitch", "RShoulderPitch"]
     angleLists = [-86.0*almath.TO_RAD, -86.0*almath.TO_RAD]
-    timeLists  = [1.0, 1.2]
+    timeLists  = [1.0, 1.0]
     isAbsolute = True
     motion_service.angleInterpolation(names, angleLists, timeLists, isAbsolute)
 
