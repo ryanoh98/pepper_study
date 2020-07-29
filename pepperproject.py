@@ -101,11 +101,15 @@ if __name__ == "__main__":
         result_pose_capture = pose_detect(data)
 
         # Compare two photos
-        point1 = result_pose_sample[0]['keypoints']
-        point2 = result_pose_capture[0]['keypoints']
         score = 0
-        for i,j in zip(point1, point2):
-            score += abs(i-j)
+        try:
+            point1 = result_pose_sample[0]['keypoints']
+            point2 = result_pose_capture[0]['keypoints']
+
+            for i,j in zip(point1, point2):
+                score += abs(i-j)
+        except:
+            pass
         if score > 500:
             bad(session)
         else:
