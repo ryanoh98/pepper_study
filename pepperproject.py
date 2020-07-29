@@ -10,7 +10,7 @@ import requests
 from PIL import Image
 
 # pepper capturing photo
-def main(session):
+def capture(session):
     # Get the service ALVideoDevice.
 
     video_service = session.service("ALVideoDevice")
@@ -24,7 +24,7 @@ def main(session):
 
     nameId = video_service.subscribe("python_GVM", resolution, colorSpace, fps)
 
-    print ('getting images in remote')
+    print('getting images in remote')
     for i in range(0, 1):
         print("getting image " + str(i))
         naoImage = video_service.getImageRemote(nameId)
@@ -119,7 +119,7 @@ if __name__ == "__main__":
     while True:
         # analyze the captured photo
         lookfrontandposture(session)
-        data = main(session)
+        data = capture(session)
         result_pose_capture = pose_detect(data)
 
         # Compare two photos
