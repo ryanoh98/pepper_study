@@ -49,8 +49,8 @@ def visualize(filename, annotations, threshold=0.2):
     plt.show()
 
 if __name__ == "__main__":
-    # im = Image.open('C:/Users/오윤제/Pictures/1.jpg')
-    # print('image_size', im.size)
+    im = Image.open('C:/Users/오윤제/Pictures/1.jpg')
+    print('image_size', im.size)
     IMAGE_FILE_PATH ='./sample3.png'
     f = open(IMAGE_FILE_PATH, 'rb')
     result1 = pose_detect(f)
