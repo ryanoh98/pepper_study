@@ -92,7 +92,7 @@ if __name__ == "__main__":
     intro(session)
 
     # analyze the sample
-    f = open('C:/Users/오윤제/Pictures/1.jpg', 'rb')
+    f = open('./1.jpg', 'rb')
     result_pose_sample = pose_detect(f)
 
     while True:
