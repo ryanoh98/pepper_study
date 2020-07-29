@@ -39,7 +39,7 @@ def capture(session):
 
     video_service.unsubscribe(nameId)
 
-    return image_string
+    return bytes(array)
 
 # pose analyze
 def pose_detect(file):
@@ -115,8 +115,6 @@ if __name__ == "__main__":
 
     # analyze the sample
     f = open('./1.jpg', 'rb')
-    print(type(f))
-    print(f)
     result_pose_sample = pose_detect(f)
 
     while True:
