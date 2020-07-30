@@ -35,7 +35,8 @@ def capture(session):
         image_string = str(bytearray(array))
         print('width, height',width, height)
         im = Image.frombytes("RGB", (width, height), image_string)
-        im.save("naoImage" + str(i) + '.png', "PNG")
+        resize_image = im.resize((640,480))
+        resize_image.save("naoImage" + str(i) + '.png', "PNG")
         time.sleep(0.05)
 
     video_service.unsubscribe(nameId)
@@ -78,7 +79,7 @@ def lookfrontandposture(session):
     motion_service  = session.service("ALMotion")
     motion_service.setStiffnesses(["Head", "Shoulder"], [1.0, 1.0])
     names            = ["HeadYaw", "HeadPitch", "LShoulderPitch", "RShoulderPitch"]
-    angles           = [0.0*almath.TO_RAD, -12.0*almath.TO_RAD, -86.0*almath.TO_RAD, -86.0*almath.TO_RAD]
+    angles           = [0.0*almath.TO_RAD, -25.0*almath.TO_RAD, -86.0*almath.TO_RAD, -86.0*almath.TO_RAD]
     fractionMaxSpeed = 0.1
     motion_service.setAngles(names,angles,fractionMaxSpeed)
 
