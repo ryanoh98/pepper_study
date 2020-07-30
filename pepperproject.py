@@ -71,7 +71,7 @@ def bad(session):
     # Speaking
     tts = session.service("ALTextToSpeech")
     tts.say("It's wrong. Do it again in 3 seconds.")
-    time.sleep(3)
+    time.sleep(5)
 
 def concl(session):
     # Speaking
@@ -83,22 +83,10 @@ def lookfrontandposture(session):
     motion_service.setStiffnesses(["Head", "Shoulder"], [1.0, 1.0])
     names            = ["HeadYaw", "HeadPitch", "LShoulderPitch", "RShoulderPitch"]
     angles           = [0.0*almath.TO_RAD, -35.0*almath.TO_RAD, -86.0*almath.TO_RAD, -86.0*almath.TO_RAD]
-    fractionMaxSpeed = 0.3
+    fractionMaxSpeed = 0.4
     motion_service.setAngles(names,angles,fractionMaxSpeed)
-    motion_service.setStiffnesses("WholeBody", 0.0)
+    time.sleep(5)
 
-
-def posture(session):
-    # Get the service ALMotion.
-    motion_service = session.service("ALMotion")
-    motion_service.setStiffnesses("Shoulder", 1.0)
-
-    # Example showing a single target angle for one joint
-    # Interpolates the head yaw to 1.0 radian in 1.0 second
-    names      = ["LShoulderPitch", "RShoulderPitch"]
-    angles = [-86.0*almath.TO_RAD, -86.0*almath.TO_RAD]
-    fractionMaxSpeed = 0.1
-    motion_service.setAngles(names,angles,fractionMaxSpeed)
 def cal_angle(x,y,z):
     return (180/math.pi)*abs(math.atan((x[1]-y[1])/(x[0])-(y[0]))
                                    -math.atan((z[1]-y[1])/(z[0]-y[0])))
@@ -129,7 +117,6 @@ if __name__ == "__main__":
         count +=1
         # analyze the captured photo
         lookfrontandposture(session)
-        time.sleep(3)
         image_name = capture(session,count)
         f_capture = open(image_name, 'rb')
         result_pose_capture = pose_detect(f_capture)
@@ -164,10 +151,10 @@ if __name__ == "__main__":
         right_fromShoulder_angle2 = cal_angle(point2_RShoulder, point2_RElbow, point2_RWrist)
         left_fromShoulder_angle2 = cal_angle(point2_LShoulder, point2_LElbow, point2_LWrist)
 
-        print(right_fromEar_angle1-right_fromEar_angle2)
-        print(right_fromShoulder_angle1-right_fromShoulder_angle2)
-        print(left_fromEar_angle1-left_fromEar_angle2)
-        print(left_fromShoulder_angle1-left_fromShoulder_angle2)
+        print(abs(right_fromEar_angle1-right_fromEar_angle2))
+        print(abs(right_fromShoulder_angle1-right_fromShoulder_angle2))
+        print(abs(left_fromEar_angle1-left_fromEar_angle2))
+        print(abs(left_fromShoulder_angle1-left_fromShoulder_angle2))
 
         if ((abs(right_fromEar_angle1-right_fromEar_angle2) <= 30) and (abs(right_fromShoulder_angle1-right_fromShoulder_angle2) <= 30)
         and (abs(left_fromEar_angle1-left_fromEar_angle2) <= 30) and (abs(left_fromShoulder_angle1-left_fromShoulder_angle2) <= 30)) :
