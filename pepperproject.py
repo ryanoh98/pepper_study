@@ -162,8 +162,13 @@ if __name__ == "__main__":
         right_fromShoulder_angle2 = cal_angle(point2_RShoulder, point2_RElbow, point2_RWrist)
         left_fromShoulder_angle2 = cal_angle(point2_LShoulder, point2_LElbow, point2_LWrist)
 
-        if (((right_fromEar_angle1-right_fromEar_angle2) <= 10) and ((right_fromShoulder_angle1-right_fromShoulder_angle2) <= 10)
-        and ((left_fromEar_angle1-left_fromEar_angle2) <= 10) and ((left_fromShoulder_angle1-left_fromShoulder_angle2) <= 10)) :
+        print(right_fromEar_angle1-right_fromEar_angle2)
+        print(right_fromShoulder_angle1-right_fromShoulder_angle2)
+        print(left_fromEar_angle1-left_fromEar_angle2)
+        print(left_fromShoulder_angle1-left_fromShoulder_angle2)
+
+        if (((right_fromEar_angle1-right_fromEar_angle2) <= 30) and ((right_fromShoulder_angle1-right_fromShoulder_angle2) <= 30)
+        and ((left_fromEar_angle1-left_fromEar_angle2) <= 30) and ((left_fromShoulder_angle1-left_fromShoulder_angle2) <= 30)) :
             good(session)
         else:
             bad(session)
