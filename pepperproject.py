@@ -39,7 +39,7 @@ def capture(session):
 
     video_service.unsubscribe(nameId)
 
-    return image_string
+    return naoImage
 
 # pose analyze
 def pose_detect(file):
