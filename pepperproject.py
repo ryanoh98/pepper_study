@@ -163,7 +163,7 @@ if __name__ == "__main__":
 
 
         if ((CompareFromREar <= 30) and (CompareFromLEar <= 30) and (CompareFromRShoulder <= 30)
-                and (CompareFromLShoulder <= 30)) :
+                and (CompareFromLShoulder <= 30)):
             good(session)
             break
         else:
