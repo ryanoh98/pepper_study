@@ -85,7 +85,7 @@ def lookfrontandposture(session):
     angles           = [0.0*almath.TO_RAD, -35.0*almath.TO_RAD, -86.0*almath.TO_RAD, -86.0*almath.TO_RAD]
     fractionMaxSpeed = 0.3
     motion_service.setAngles(names,angles,fractionMaxSpeed)
-    motion_service.setStiffnesses("Head", 0.0)
+    motion_service.setStiffnesses("WholeBody", 0.0)
 
 
 def posture(session):
