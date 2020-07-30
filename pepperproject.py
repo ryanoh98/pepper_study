@@ -140,6 +140,7 @@ if __name__ == "__main__":
             print(result_pose_capture)
             print(e)
             pass
+        print('score', score)
         if score > 500:
             bad(session)
         else:
@@ -147,5 +148,5 @@ if __name__ == "__main__":
             break
     # Conclusion
     concl(session)
-    print('score', score)
+
 
