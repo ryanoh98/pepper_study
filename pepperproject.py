@@ -82,7 +82,7 @@ def lookfrontandposture(session):
     motion_service  = session.service("ALMotion")
     motion_service.setStiffnesses(["Head", "Shoulder"], [1.0, 1.0])
     names            = ["HeadYaw", "HeadPitch", "LShoulderPitch", "RShoulderPitch"]
-    angles           = [0.0*almath.TO_RAD, -25.0*almath.TO_RAD, -86.0*almath.TO_RAD, -86.0*almath.TO_RAD]
+    angles           = [0.0*almath.TO_RAD, -35.0*almath.TO_RAD, -86.0*almath.TO_RAD, -86.0*almath.TO_RAD]
     fractionMaxSpeed = 0.3
     motion_service.setAngles(names,angles,fractionMaxSpeed)
     motion_service.setStiffnesses("Head", 0.0)
