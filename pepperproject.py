@@ -33,7 +33,8 @@ def capture(session):
         height = naoImage[1]
         array = naoImage[6]
         image_string = str(bytearray(array))
-        im = Image.frombytes("RGB", (640, 480), image_string)
+        print('width, height',width, height)
+        im = Image.frombytes("RGB", (width, height), image_string)
         im.save("naoImage" + str(i) + '.png', "PNG")
         time.sleep(0.05)
 
