@@ -83,8 +83,9 @@ def lookfrontandposture(session):
     motion_service.setStiffnesses(["Head", "Shoulder"], [1.0, 1.0])
     names            = ["HeadYaw", "HeadPitch", "LShoulderPitch", "RShoulderPitch"]
     angles           = [0.0*almath.TO_RAD, -25.0*almath.TO_RAD, -86.0*almath.TO_RAD, -86.0*almath.TO_RAD]
-    fractionMaxSpeed = 0.1
+    fractionMaxSpeed = 0.3
     motion_service.setAngles(names,angles,fractionMaxSpeed)
+    motion_service.setStiffnesses("Head", 0.0)
 
 
 def posture(session):
@@ -128,6 +129,7 @@ if __name__ == "__main__":
         count +=1
         # analyze the captured photo
         lookfrontandposture(session)
+        time.sleep(3)
         image_name = capture(session,count)
         f_capture = open(image_name, 'rb')
         result_pose_capture = pose_detect(f_capture)
