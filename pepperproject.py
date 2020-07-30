@@ -151,13 +151,19 @@ if __name__ == "__main__":
         right_fromShoulder_angle2 = cal_angle(point2_RShoulder, point2_RElbow, point2_RWrist)
         left_fromShoulder_angle2 = cal_angle(point2_LShoulder, point2_LElbow, point2_LWrist)
 
-        print(abs(right_fromEar_angle1-right_fromEar_angle2))
-        print(abs(right_fromShoulder_angle1-right_fromShoulder_angle2))
-        print(abs(left_fromEar_angle1-left_fromEar_angle2))
-        print(abs(left_fromShoulder_angle1-left_fromShoulder_angle2))
+        CompareFromREar = abs(right_fromEar_angle1-right_fromEar_angle2)
+        CompareFromLEar = abs(left_fromEar_angle1-left_fromEar_angle2)
+        CompareFromRShoulder = abs(left_fromEar_angle1-left_fromEar_angle2)
+        CompareFromLShoulder = abs(left_fromShoulder_angle1-left_fromShoulder_angle2)
 
-        if ((abs(right_fromEar_angle1-right_fromEar_angle2) <= 30) and (abs(right_fromShoulder_angle1-right_fromShoulder_angle2) <= 30)
-        and (abs(left_fromEar_angle1-left_fromEar_angle2) <= 30) and (abs(left_fromShoulder_angle1-left_fromShoulder_angle2) <= 30)) :
+        print(CompareFromREar)
+        print(CompareFromLEar)
+        print(CompareFromRShoulder)
+        print(CompareFromLShoulder)
+
+
+        if ((CompareFromREar <= 30) and (CompareFromLEar <= 30) and (CompareFromRShoulder <= 30)
+                and (CompareFromLShoulder <= 30)) :
             good(session)
             break
         else:
