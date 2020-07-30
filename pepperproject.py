@@ -10,7 +10,7 @@ import requests
 from PIL import Image
 
 # pepper capturing photo
-def capture(session):
+def capture(session, count):
     # Get the service ALVideoDevice.
     print('here is capture function')
 
@@ -26,22 +26,23 @@ def capture(session):
     nameId = video_service.subscribe("python_GVM", resolution, colorSpace, fps)
 
     print('getting images in remote')
-    for i in range(0, 1):
-        print("getting image " + str(i))
-        naoImage = video_service.getImageRemote(nameId)
-        width = naoImage[0]
-        height = naoImage[1]
-        array = naoImage[6]
-        image_string = str(bytearray(array))
-        print('width, height',width, height)
-        im = Image.frombytes("RGB", (width, height), image_string)
-        resize_image = im.resize((640,480))
-        resize_image.save("naoImage" + str(i) + '.png', "PNG")
-        time.sleep(0.05)
+    # for i in range(0, 1):
+    print("getting image " + str(count))
+    naoImage = video_service.getImageRemote(nameId)
+    width = naoImage[0]
+    height = naoImage[1]
+    array = naoImage[6]
+    image_string = str(bytearray(array))
+    print('width, height',width, height)
+    im = Image.frombytes("RGB", (width, height), image_string)
+    resize_image = im.resize((640,480))
+    image_name = "naoImage" + str(count) + '.png'
+    resize_image.save("naoImage" + str(count) + '.png', "PNG")
+    time.sleep(0.05)
 
     video_service.unsubscribe(nameId)
 
-    return naoImage
+    return image_name
 
 # pose analyze
 def pose_detect(file):
@@ -118,12 +119,13 @@ if __name__ == "__main__":
     # analyze the sample
     f = open('./1.jpg', 'rb')
     result_pose_sample = pose_detect(f)
-
+    count = 0
     while True:
+        count +=1
         # analyze the captured photo
         lookfrontandposture(session)
-        data = capture(session)
-        f_capture = open('./naoImage0.png', 'rb')
+        image_name = capture(session,count)
+        f_capture = open(image_name, 'rb')
         result_pose_capture = pose_detect(f_capture)
 
         # Compare two photos
