@@ -167,9 +167,10 @@ if __name__ == "__main__":
         print(left_fromEar_angle1-left_fromEar_angle2)
         print(left_fromShoulder_angle1-left_fromShoulder_angle2)
 
-        if (((right_fromEar_angle1-right_fromEar_angle2) <= 30) and ((right_fromShoulder_angle1-right_fromShoulder_angle2) <= 30)
-        and ((left_fromEar_angle1-left_fromEar_angle2) <= 30) and ((left_fromShoulder_angle1-left_fromShoulder_angle2) <= 30)) :
+        if ((abs(right_fromEar_angle1-right_fromEar_angle2) <= 30) and (abs(right_fromShoulder_angle1-right_fromShoulder_angle2) <= 30)
+        and (abs(left_fromEar_angle1-left_fromEar_angle2) <= 30) and (abs(left_fromShoulder_angle1-left_fromShoulder_angle2) <= 30)) :
             good(session)
+            break
         else:
             bad(session)
 
