@@ -73,7 +73,7 @@ def bad(session):
     tts.say("It's wrong. Do it again in 3 seconds.")
     time.sleep(5)
 
-def tryagain(session)
+def tryagain(session):
     # Speaking
     tts = session.service("ALTextToSpeech")
     tts.say("I cannot find you.")
