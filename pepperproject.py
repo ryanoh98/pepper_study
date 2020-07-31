@@ -73,6 +73,12 @@ def bad(session):
     tts.say("It's wrong. Do it again in 3 seconds.")
     time.sleep(5)
 
+def tryagain(session)
+    # Speaking
+    tts = session.service("ALTextToSpeech")
+    tts.say("I cannot find you.")
+    time.sleep(5)
+
 def concl(session):
     # Speaking
     tts = session.service("ALTextToSpeech")
@@ -121,53 +127,57 @@ if __name__ == "__main__":
         f_capture = open(image_name, 'rb')
         result_pose_capture = pose_detect(f_capture)
 
-        # Compare two photos with angle
-        point1 = result_pose_sample[0]['keypoints']
-        point2 = result_pose_capture[0]['keypoints']
+        try:
+            # Compare two photos with angle
+            point1 = result_pose_sample[0]['keypoints']
+            point2 = result_pose_capture[0]['keypoints']
 
-        point1_RShoulder = np.array([point1[18],point1[19]])
-        point1_REar = np.array([point1[12],point1[13]])
-        point1_RElbow = np.array([point1[24],point1[25]])
-        point1_RWrist = np.array([point1[30],point1[31]])
-        point1_LShoulder = np.array([point1[15],point1[16]])
-        point1_LEar = np.array([point1[9],point1[10]])
-        point1_LElbow = np.array([point1[21],point1[22]])
-        point1_LWrist = np.array([point1[27],point1[28]])
-        point2_RShoulder = np.array([point2[18],point2[19]])
-        point2_REar = np.array([point2[12],point2[13]])
-        point2_RElbow = np.array([point2[24],point2[25]])
-        point2_RWrist = np.array([point2[30],point2[31]])
-        point2_LShoulder = np.array([point2[15],point2[16]])
-        point2_LEar = np.array([point2[9],point2[10]])
-        point2_LElbow = np.array([point2[21],point2[22]])
-        point2_LWrist = np.array([point2[27],point2[28]])
+            point1_RShoulder = np.array([point1[18],point1[19]])
+            point1_REar = np.array([point1[12],point1[13]])
+            point1_RElbow = np.array([point1[24],point1[25]])
+            point1_RWrist = np.array([point1[30],point1[31]])
+            point1_LShoulder = np.array([point1[15],point1[16]])
+            point1_LEar = np.array([point1[9],point1[10]])
+            point1_LElbow = np.array([point1[21],point1[22]])
+            point1_LWrist = np.array([point1[27],point1[28]])
+            point2_RShoulder = np.array([point2[18],point2[19]])
+            point2_REar = np.array([point2[12],point2[13]])
+            point2_RElbow = np.array([point2[24],point2[25]])
+            point2_RWrist = np.array([point2[30],point2[31]])
+            point2_LShoulder = np.array([point2[15],point2[16]])
+            point2_LEar = np.array([point2[9],point2[10]])
+            point2_LElbow = np.array([point2[21],point2[22]])
+            point2_LWrist = np.array([point2[27],point2[28]])
 
-        right_fromEar_angle1 = cal_angle(point1_REar, point1_RShoulder, point1_RElbow)
-        left_fromEar_angle1 = cal_angle(point1_LEar, point1_LShoulder, point1_LElbow)
-        right_fromEar_angle2 = cal_angle(point2_REar, point2_RShoulder, point2_RElbow)
-        left_fromEar_angle2 = cal_angle(point2_LEar, point2_LShoulder, point2_LElbow)
-        right_fromShoulder_angle1 = cal_angle(point1_RShoulder, point1_RElbow, point1_RWrist)
-        left_fromShoulder_angle1 = cal_angle(point1_LShoulder, point1_LElbow, point1_LWrist)
-        right_fromShoulder_angle2 = cal_angle(point2_RShoulder, point2_RElbow, point2_RWrist)
-        left_fromShoulder_angle2 = cal_angle(point2_LShoulder, point2_LElbow, point2_LWrist)
+            right_fromEar_angle1 = cal_angle(point1_REar, point1_RShoulder, point1_RElbow)
+            left_fromEar_angle1 = cal_angle(point1_LEar, point1_LShoulder, point1_LElbow)
+            right_fromEar_angle2 = cal_angle(point2_REar, point2_RShoulder, point2_RElbow)
+            left_fromEar_angle2 = cal_angle(point2_LEar, point2_LShoulder, point2_LElbow)
+            right_fromShoulder_angle1 = cal_angle(point1_RShoulder, point1_RElbow, point1_RWrist)
+            left_fromShoulder_angle1 = cal_angle(point1_LShoulder, point1_LElbow, point1_LWrist)
+            right_fromShoulder_angle2 = cal_angle(point2_RShoulder, point2_RElbow, point2_RWrist)
+            left_fromShoulder_angle2 = cal_angle(point2_LShoulder, point2_LElbow, point2_LWrist)
 
-        CompareFromREar = abs(right_fromEar_angle1-right_fromEar_angle2)
-        CompareFromLEar = abs(left_fromEar_angle1-left_fromEar_angle2)
-        CompareFromRShoulder = abs(left_fromEar_angle1-left_fromEar_angle2)
-        CompareFromLShoulder = abs(left_fromShoulder_angle1-left_fromShoulder_angle2)
+            CompareFromREar = abs(right_fromEar_angle1-right_fromEar_angle2)
+            CompareFromLEar = abs(left_fromEar_angle1-left_fromEar_angle2)
+            CompareFromRShoulder = abs(left_fromEar_angle1-left_fromEar_angle2)
+            CompareFromLShoulder = abs(left_fromShoulder_angle1-left_fromShoulder_angle2)
 
-        print(CompareFromREar)
-        print(CompareFromLEar)
-        print(CompareFromRShoulder)
-        print(CompareFromLShoulder)
+            print(CompareFromREar)
+            print(CompareFromLEar)
+            print(CompareFromRShoulder)
+            print(CompareFromLShoulder)
 
 
-        if ((CompareFromREar <= 30) and (CompareFromLEar <= 30) and (CompareFromRShoulder <= 30)
-                and (CompareFromLShoulder <= 30)):
-            good(session)
-            break
-        else:
-            bad(session)
+            if ((CompareFromREar <= 30) and (CompareFromLEar <= 30) and (CompareFromRShoulder <= 30)
+                    and (CompareFromLShoulder <= 30)):
+                good(session)
+                break
+            else:
+                bad(session)
+        except IndexError as e:
+            print(e)
+            tryagain(session)
 
     # Conclusion
     concl(session)
