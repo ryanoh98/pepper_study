@@ -1,3 +1,9 @@
+import qi
+import argparse
+import sys
+import time
+import almath
+
 def posture2(session):
     motion_service  = session.service("ALMotion")
     motion_service.setStiffnesses(["Head", "Shoulder"], [1.0, 1.0])
