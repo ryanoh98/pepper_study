@@ -57,34 +57,34 @@ def pose_detect(file):
     return result
 
 def intro(session):
-    # Speaking
     tts = session.service("ALTextToSpeech")
-    tts.say("Hi! I think you need to prevent round shoulder. Follow my stretch.")
+    tts.say("Hi! Let's prevent round shoulder. Follow my stretch.")
 
 
 def good(session):
-    # Speaking
     tts = session.service("ALTextToSpeech")
     tts.say("Great job!")
 
 def bad(session):
-    # Speaking
     tts = session.service("ALTextToSpeech")
     tts.say("It's wrong. Do it again in 3 seconds.")
     time.sleep(5)
 
 def tryagain(session):
-    # Speaking
     tts = session.service("ALTextToSpeech")
     tts.say("I cannot find you.")
     time.sleep(5)
 
+def next(session):
+    tts = session.service("ALTextToSpeech")
+    tts.say("Let's begin the next stretch.")
+    time.sleep(4)
+
 def concl(session):
-    # Speaking
     tts = session.service("ALTextToSpeech")
     tts.say("Well done! Now, you deserve to be a normal one.")
 
-def lookfrontandposture(session):
+def posture1(session):
     motion_service  = session.service("ALMotion")
     motion_service.setStiffnesses(["Head", "Shoulder"], [1.0, 1.0])
     names            = ["HeadYaw", "HeadPitch", "LShoulderPitch", "RShoulderPitch"]
@@ -92,6 +92,17 @@ def lookfrontandposture(session):
     fractionMaxSpeed = 0.4
     motion_service.setAngles(names,angles,fractionMaxSpeed)
     time.sleep(5)
+
+def posture2(session):
+    motion_service  = session.service("ALMotion")
+    motion_service.setStiffnesses(["Head", "Shoulder", "Elbow"], [1.0, 1.0, 1.0])
+    names            = ["HeadYaw", "HeadPitch", "LShoulderRoll", "RShoulderRoll", "LElbowRoll", "RElbowRoll", "LElbowYaw", "RElbowYaw"]
+    angles           = [0.0*almath.TO_RAD, -35.0*almath.TO_RAD, 45.0*almath.TO_RAD, -45.0*almath.TO_RAD,
+                        -89.0*almath.TO_RAD, 89.0*almath.TO_RAD, 5.0*almath.TO_RAD, -5.0*almath.TO_RAD]
+    fractionMaxSpeed = 0.4
+    motion_service.setAngles(names,angles,fractionMaxSpeed)
+    time.sleep(5)
+
 
 def cal_angle(x,y,z):
     return (180/math.pi)*abs(math.atan((x[1]-y[1])/(x[0])-(y[0]))
@@ -115,22 +126,22 @@ if __name__ == "__main__":
     # Introduction
     intro(session)
 
-    # analyze the sample
-    f = open('./sample.png', 'rb')
-    result_pose_sample = pose_detect(f)
-    count = 0
+    # analyze the first sample
+    f1 = open('./sample.png', 'rb')
+    result_pose_sample1 = pose_detect(f1)
+    count1 = 0
     while True:
-        count +=1
+        count1 +=1
         # analyze the captured photo
-        lookfrontandposture(session)
-        image_name = capture(session,count)
-        f_capture = open(image_name, 'rb')
-        result_pose_capture = pose_detect(f_capture)
+        posture1(session)
+        image_name1 = capture(session,count1)
+        f_capture1 = open(image_name1, 'rb')
+        result_pose_capture1 = pose_detect(f_capture1)
 
         try:
             # Compare two photos with angle
-            point1 = result_pose_sample[0]['keypoints']
-            point2 = result_pose_capture[0]['keypoints']
+            point1 = result_pose_sample1[0]['keypoints']
+            point2 = result_pose_capture1[0]['keypoints']
 
             point1_RShoulder = np.array([point1[18],point1[19]])
             point1_REar = np.array([point1[12],point1[13]])
@@ -171,6 +182,71 @@ if __name__ == "__main__":
 
             if ((CompareFromREar <= 30) and (CompareFromLEar <= 30) and (CompareFromRShoulder <= 30)
                     and (CompareFromLShoulder <= 30)):
+                good(session)
+                break
+            else:
+                bad(session)
+        except IndexError as e:
+            print(e)
+            tryagain(session)
+
+    # move on to the second posture
+    next(session)
+    f2 = open('./posture222.jpg', 'rb')
+    result_pose_sample2 = pose_detect(f2)
+    count2 = 0
+    while True:
+        count2 +=1
+        # analyze the captured photo
+        posture2(session)
+        image_name2 = capture(session,count2)
+        f_capture2 = open(image_name2, 'rb')
+        result_pose_capture2 = pose_detect(f_capture2)
+
+        try:
+            # Compare two photos with angle
+            point11 = result_pose_sample2[0]['keypoints']
+            point22 = result_pose_capture2[0]['keypoints']
+
+            point11_RShoulder = np.array([point11[18],point11[19]])
+            point11_REar = np.array([point11[12],point11[13]])
+            point11_RElbow = np.array([point11[24],point11[25]])
+            point11_RWrist = np.array([point11[30],point11[31]])
+            point11_LShoulder = np.array([point11[15],point11[16]])
+            point11_LEar = np.array([point11[9],point11[10]])
+            point11_LElbow = np.array([point11[21],point11[22]])
+            point11_LWrist = np.array([point11[27],point11[28]])
+            point22_RShoulder = np.array([point22[18],point22[19]])
+            point22_REar = np.array([point22[12],point22[13]])
+            point22_RElbow = np.array([point22[24],point22[25]])
+            point22_RWrist = np.array([point22[30],point22[31]])
+            point22_LShoulder = np.array([point22[15],point22[16]])
+            point22_LEar = np.array([point22[9],point22[10]])
+            point22_LElbow = np.array([point22[21],point22[22]])
+            point22_LWrist = np.array([point22[27],point22[28]])
+
+            right_fromEar_angle11 = cal_angle(point11_REar, point11_RShoulder, point11_RElbow)
+            left_fromEar_angle11 = cal_angle(point11_LEar, point11_LShoulder, point11_LElbow)
+            right_fromEar_angle22 = cal_angle(point22_REar, point22_RShoulder, point22_RElbow)
+            left_fromEar_angle22 = cal_angle(point22_LEar, point22_LShoulder, point22_LElbow)
+            right_fromShoulder_angle11 = cal_angle(point11_RShoulder, point11_RElbow, point11_RWrist)
+            left_fromShoulder_angle11 = cal_angle(point11_LShoulder, point11_LElbow, point11_LWrist)
+            right_fromShoulder_angle22 = cal_angle(point22_RShoulder, point22_RElbow, point22_RWrist)
+            left_fromShoulder_angle22 = cal_angle(point22_LShoulder, point22_LElbow, point22_LWrist)
+
+            CompareFromREar2 = abs(right_fromEar_angle11-right_fromEar_angle22)
+            CompareFromLEar2 = abs(left_fromEar_angle11-left_fromEar_angle22)
+            CompareFromRShoulder2 = abs(left_fromEar_angle11-left_fromEar_angle22)
+            CompareFromLShoulder2 = abs(left_fromShoulder_angle11-left_fromShoulder_angle22)
+
+            print(CompareFromREar2)
+            print(CompareFromLEar2)
+            print(CompareFromRShoulder2)
+            print(CompareFromLShoulder2)
+
+
+            if ((CompareFromREar2 <= 30) and (CompareFromLEar2 <= 30) and (CompareFromRShoulder2 <= 30)
+                    and (CompareFromLShoulder2 <= 30)):
                 good(session)
                 break
             else:
